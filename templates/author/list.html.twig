@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AuthorController!{% endblock %}
+
+{% block body %}
+<h1>Authors list </h1>
+<div> 
+    {% if authors is defined and authors is not empty %}
+    <p>Authors found.</p>
+    {% else %}
+    <p>Authors not found.</p>
+    {% endif %}
+    {% set number_books = 0 %}
+    {% for author in authors %}
+    {% set number_books = number_books + author.nb_books %}
+    <img src="{{ asset(author.picture) }}" alt="{{author.username}}" height="150px" />
+    <p> <b>Username :</b>  {{ author.username | upper }} </p>
+    <p> <b>Email :</b>  {{ author.email }} </p>
+    <p> <b>Number of Books :</b>  {{ author.nb_books }} </p>    
+    <hr>
+    {% else %}
+    <h2>Not authors found. </h2>
+    {% endfor %}
+    <p> <b> Number of Authors : </b> {{ authors | length }} </p>
+    <p> <b> Number of Books : </b> {{ number_books }} </p>
+ </div>
+{% endblock %}

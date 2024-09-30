@@ -1,0 +1,24 @@
+<h1>Hello </h1>
+<p> {{ t }} </p> {{ controller_name }}<br>
+ {% set pi=3.14 %}
+ {% set title="tiTre.." %}
+ {{ title|upper|lower}}
+ {{ dump(title)}}
+ {{ pi ~ ' ' ~title }}
+ {% set tableau={nom:"ahmed", age:32} %} 
+<br>
+ {% for key, value in tableau %}
+    {{ key }}, {{ value }}<br>
+ {% endfor %}
+ <br><br>
+ {% set foo = [3, {"mot": "soleil"}] %}
+ {{ foo[1]['mot'] }}
+
+ {% set num %}
+<div id="num" style="color:red;">
++216 22 555 666
+… </div>
+{% endset %}
+
+
+{{ num }}{{ num }}
