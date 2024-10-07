@@ -5,6 +5,7 @@
 {% block body %}
 <h1>Authors list </h1>
 <div> 
+    <a href="{{path('app_author_add')}}">Add Author</a>
     {% if authors is defined and authors is not empty %}
     <p>Authors found.</p>
     {% else %}
@@ -12,11 +13,14 @@
     {% endif %}
     {% set number_books = 0 %}
     {% for author in authors %}
-    {% set number_books = number_books + author.nb_books %}
+    {% set number_books = number_books + author.nbBooks %}
     <img src="{{ asset(author.picture) }}" alt="{{author.username}}" height="150px" />
     <p> <b>Username :</b>  {{ author.username | upper }} </p>
     <p> <b>Email :</b>  {{ author.email }} </p>
-    <p> <b>Number of Books :</b>  {{ author.nb_books }} </p>    
+    <p> <b>Number of Books :</b>  {{ author.nbBooks }} </p>    
+    <a href="{{path('app_author_details',{id: author.id})}}">Details</a>
+    <a href="{{path('app_author_edit',{id: author.id})}}">Update</a>
+    <a href="{{path('app_author_delete',{id: author.id})}}">Delete</a>
     <hr>
     {% else %}
     <h2>Not authors found. </h2>
