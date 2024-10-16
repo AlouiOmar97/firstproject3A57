@@ -6,6 +6,18 @@
 <h1>{{ title}} </h1>
 <div>
 {{form(form)}}
+<div >
+{#
+second form
+{{form_start(form)}}
+{{form_row(form.picture)}}
+{{form_row(form.username)}}
+{{form_row(form.email)}}
+{{form_row(form.nbBooks)}}
+{{form_end(form)}}
+<input type="submit"  />
+#}
+</div>
 
 </div>
 {% endblock %}

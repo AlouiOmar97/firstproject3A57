@@ -6,6 +6,7 @@ use App\Entity\Author;
 use App\Form\AddAuthorType;
 use App\Repository\AuthorRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,6 +51,7 @@ class AuthorController extends AbstractController
     #[Route('/author/details/{id}', name: 'app_author_details')]
     public function authorDetails($id, AuthorRepository $authorRepository){
         $author= $authorRepository->find($id);
+        //$author=$authorRepository->findByNbBooks(250);
         return $this->render('author/details.html.twig',[
             'author'=> $author
         ]);
@@ -75,12 +77,13 @@ class AuthorController extends AbstractController
     }
 
     #[Route('/author/edit/{id}', name: 'app_author_edit')]
-    public function editAuthor($id, AuthorRepository $authorRepository, EntityManagerInterface $em, Request $request){
+    public function editAuthor($id, AuthorRepository $authorRepository, ManagerRegistry $doctrine, Request $request){
         $author= $authorRepository->find($id);
+        $em= $doctrine->getManager();
         $form= $this->createForm(AddAuthorType::class, $author);
         $form->handleRequest($request);
         if($form->isSubmitted()){
-            $em->persist($author);
+            //$em->persist($author);
             $em->flush();
             return $this->redirectToRoute('app_authors_list');
         }
