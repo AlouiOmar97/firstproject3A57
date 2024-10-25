@@ -16,6 +16,29 @@ class BookRepository extends ServiceEntityRepository
         parent::__construct($registry, Book::class);
     }
 
+
+    public function findByUserBook($username)
+    {
+        return $this->createQueryBuilder('b')
+        ->join('b.author', 'a')
+        //->select('b')    
+        ->addSelect('a')
+            ->where("a.username LIKE :username ")
+            ->setParameter('username', '%'.$username.'%')
+            ->getQuery()
+            ->getDQL()
+        ;
+    }
+
+    public function findByUserBookDQL($username)
+    {
+        return $this->getEntityManager()
+        ->createQuery("SELECT b, a FROM App\Entity\Book b INNER JOIN b.author a WHERE a.username LIKE :username")
+        ->setParameter('username', '%'.$username.'%')
+        ->getResult()
+
+        ;
+    }
     //    /**
     //     * @return Book[] Returns an array of Book objects
     //     */

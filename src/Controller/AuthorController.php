@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Author;
 use App\Form\AddAuthorType;
 use App\Repository\AuthorRepository;
+use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -74,6 +75,12 @@ class AuthorController extends AbstractController
             'author' => $author,
             'form' => $form
         ]);
+    }
+
+    #[Route('/author/search', name: 'app_author_search')]
+    public function searchAuthor(BookRepository $authorRepository) {
+        $author= $authorRepository->findByUserBookDQL('Tah');
+        dd($author);
     }
 
     #[Route('/author/edit/{id}', name: 'app_author_edit')]
